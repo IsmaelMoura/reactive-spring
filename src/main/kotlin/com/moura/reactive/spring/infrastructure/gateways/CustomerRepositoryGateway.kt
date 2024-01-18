@@ -15,4 +15,8 @@ class CustomerRepositoryGateway(
             .let { customerRepository.save(it) }
             .let(customerEntityMapper::toDomainObject)
     }
+
+    override suspend fun deleteCustomerById(id: Long) {
+        return customerRepository.deleteById(id)
+    }
 }

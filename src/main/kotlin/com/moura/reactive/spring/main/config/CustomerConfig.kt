@@ -2,7 +2,9 @@ package com.moura.reactive.spring.main.config
 
 import com.moura.reactive.spring.application.gateways.CustomerGateway
 import com.moura.reactive.spring.application.interactors.CreateCustomerInteractor
+import com.moura.reactive.spring.application.interactors.DeleteCustomerInteractor
 import com.moura.reactive.spring.application.usecases.CreateCustomerUseCase
+import com.moura.reactive.spring.application.usecases.DeleteCustomerUseCase
 import com.moura.reactive.spring.infrastructure.controllers.dto.product.ProductDTOMapper
 import com.moura.reactive.spring.infrastructure.controllers.dto.user.CustomerDTOMapper
 import com.moura.reactive.spring.infrastructure.gateways.CustomerRepositoryGateway
@@ -17,6 +19,13 @@ class CustomerConfig {
     @Bean
     fun createCustomerUseCase(customerGateway: CustomerGateway) : CreateCustomerUseCase {
         return CreateCustomerInteractor(customerGateway = customerGateway)
+    }
+
+    @Bean
+    fun deleteCustomerUseCase(customerGateway: CustomerGateway): DeleteCustomerUseCase {
+        return DeleteCustomerInteractor(
+            customerGateway = customerGateway
+        )
     }
 
     @Bean
