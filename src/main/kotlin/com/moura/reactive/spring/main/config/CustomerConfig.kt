@@ -1,0 +1,39 @@
+package com.moura.reactive.spring.main.config
+
+import com.moura.reactive.spring.application.gateways.CustomerGateway
+import com.moura.reactive.spring.application.interactors.CreateCustomerInteractor
+import com.moura.reactive.spring.application.usecases.CreateCustomerUseCase
+import com.moura.reactive.spring.infrastructure.controllers.dto.product.ProductDTOMapper
+import com.moura.reactive.spring.infrastructure.controllers.dto.user.CustomerDTOMapper
+import com.moura.reactive.spring.infrastructure.gateways.CustomerRepositoryGateway
+import com.moura.reactive.spring.infrastructure.gateways.mapper.CustomerEntityMapper
+import com.moura.reactive.spring.infrastructure.persistence.repository.CustomerRepository
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+
+@Configuration
+class CustomerConfig {
+
+    @Bean
+    fun createCustomerUseCase(customerGateway: CustomerGateway) : CreateCustomerUseCase {
+        return CreateCustomerInteractor(customerGateway = customerGateway)
+    }
+
+    @Bean
+    fun customerGateway(productRepository: CustomerRepository, customerEntityMapper: CustomerEntityMapper) : CustomerGateway {
+        return CustomerRepositoryGateway(
+            customerRepository = productRepository,
+            customerEntityMapper = customerEntityMapper
+        )
+    }
+
+    @Bean
+    fun customerEntityMapper(): CustomerEntityMapper {
+        return CustomerEntityMapper()
+    }
+
+    @Bean
+    fun customerDTOMapper() : CustomerDTOMapper {
+        return CustomerDTOMapper()
+    }
+}
