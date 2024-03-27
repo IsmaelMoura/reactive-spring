@@ -6,21 +6,24 @@ import com.moura.reactive.spring.infrastructure.controllers.dto.product.CreatePr
 import com.moura.reactive.spring.infrastructure.controllers.dto.product.ProductDTOMapper
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping(Mappings.PRODUCT_PATH)
+@RequestMapping(Endpoints.PRODUCTS_ENDPOINT)
 class ProductController(
     private val createProductUseCase: CreateProductUseCase,
-    private val productDTOMapper: ProductDTOMapper
+    private val productDTOMapper: ProductDTOMapper,
 ) {
 
     @PostMapping
-    suspend fun createProduct(createProductRequest: CreateProductRequest): ResponseEntity<CreateProductResponse> {
+    suspend fun createProduct(
+        @RequestBody createProductRequest: CreateProductRequest,
+    ): ResponseEntity<CreateProductResponse> {
         return productDTOMapper.toDomainProduct(createProductRequest)
-            .let { createProductUseCase.createProduct(it) }
-            .let { productDTOMapper.toResponse(it) }
-            .let { ResponseEntity.ok(it) }
+            .let { product -> createProductUseCase.createProduct(product) }
+            .let { product -> productDTOMapper.toResponse(product) }
+            .let { response -> ResponseEntity.ok(response) }
     }
 }

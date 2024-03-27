@@ -4,5 +4,5 @@ interface EntityMapper<DOMAIN, ENTITY> {
 
     fun toEntity(domain: DOMAIN): ENTITY
 
-    fun toDomainObject(entity: ENTITY) : DOMAIN
+    fun toDomainObject(entity: ENTITY): DOMAIN
 }

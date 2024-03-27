@@ -4,14 +4,14 @@ import com.moura.reactive.spring.domain.entity.Product
 
 class ProductDTOMapper {
 
-    fun toDomainProduct(createProductRequest: CreateProductRequest) : Product {
+    fun toDomainProduct(createProductRequest: CreateProductRequest): Product {
         return Product(
             name = createProductRequest.name,
             price = createProductRequest.price
         )
     }
 
-    fun toResponse(product: Product) : CreateProductResponse {
+    fun toResponse(product: Product): CreateProductResponse {
         return CreateProductResponse(
             name = product.name,
             price = product.price

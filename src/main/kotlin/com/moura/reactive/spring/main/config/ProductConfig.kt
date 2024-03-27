@@ -14,14 +14,14 @@ import org.springframework.context.annotation.Configuration
 class ProductConfig {
 
     @Bean
-    fun createProductUseCase(productGateway: ProductGateway) : CreateProductUseCase {
+    fun createProductUseCase(productGateway: ProductGateway): CreateProductUseCase {
         return CreateProductInteractor(
             productGateway = productGateway
         )
     }
 
     @Bean
-    fun productGateway(productRepository: ProductRepository, productEntityMapper: ProductEntityMapper) : ProductGateway {
+    fun productGateway(productRepository: ProductRepository, productEntityMapper: ProductEntityMapper): ProductGateway {
         return ProductRepositoryGateway(
             productRepository = productRepository,
             productEntityMapper = productEntityMapper
@@ -34,7 +34,7 @@ class ProductConfig {
     }
 
     @Bean
-    fun productDTOMapper() : ProductDTOMapper {
+    fun productDTOMapper(): ProductDTOMapper {
         return ProductDTOMapper()
     }
 }

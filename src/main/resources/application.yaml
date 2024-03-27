@@ -1,0 +1,8 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/reactive_spring?schema=reactive_spring_schema
+    username: root
+    password: root
+  sql:
+    init:
+      mode: always
