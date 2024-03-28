@@ -1,11 +1,15 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.2.4"
-    id("io.spring.dependency-management") version "1.1.4"
+    val kotlinVersion = "1.9.23"
+    val springBootVersion = "3.2.4"
+    val springDependencyManagerVersion = "1.1.4"
 
-    kotlin("jvm") version "1.9.23"
-    kotlin("plugin.spring") version "1.9.23"
+    id("org.springframework.boot") version springBootVersion
+    id("io.spring.dependency-management") version springDependencyManagerVersion
+
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
 }
 
 repositories {
