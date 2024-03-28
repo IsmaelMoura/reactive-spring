@@ -3,24 +3,24 @@ package com.moura.reactive.spring
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Tag
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.DockerComposeContainer
-import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import java.io.File
 
 @Tag("integration-test")
 @Testcontainers
-open class BaseIntegrationTest {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class BaseIntegrationTest {
 
     companion object {
-        private val dockerComposeContainer: KDockerComposeContainer by lazy { defineDockerCompose() }
+        private val docker: KDockerComposeContainer by lazy { defineDockerCompose() }
 
         private fun defineDockerCompose() =
             KDockerComposeContainer("docker-compose.yaml")
                 .withExposedService(ContainersConstants.POSTGRES_SERVICE_NAME, ContainersConstants.POSTGRES_PORT)
-                .withLocalCompose(true)
 
 
         @JvmStatic
@@ -32,12 +32,12 @@ open class BaseIntegrationTest {
         private fun registerPostgresProperties(registry: DynamicPropertyRegistry) {
             registry.add("spring.r2dbc.url") {
                 "r2dbc:postgresql://${
-                    dockerComposeContainer.getServiceHost(
+                    docker.getServiceHost(
                         ContainersConstants.POSTGRES_SERVICE_NAME,
                         ContainersConstants.POSTGRES_PORT
                     )
                 }:${
-                    dockerComposeContainer.getServicePort(
+                    docker.getServicePort(
                         ContainersConstants.POSTGRES_SERVICE_NAME,
                         ContainersConstants.POSTGRES_PORT
                     )
@@ -50,13 +50,13 @@ open class BaseIntegrationTest {
         @JvmStatic
         @BeforeAll
         fun setUp() {
-            dockerComposeContainer.start()
+            docker.start()
         }
 
         @JvmStatic
         @AfterAll
         fun tearDown() {
-            dockerComposeContainer.stop()
+            docker.stop()
         }
     }
 

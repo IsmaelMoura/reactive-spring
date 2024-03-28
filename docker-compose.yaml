@@ -8,11 +8,6 @@ services:
     volumes:
       - ./src/main/resources/sql:/docker-entrypoint-initdb.d
     environment:
-      POSTGRES_USERNAME: root
+      POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-    networks:
-      - postgres
-
-networks:
-  postgres:
-    driver: bridge
+      POSTGRES_DB: reactive_spring

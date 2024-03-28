@@ -21,12 +21,12 @@ class CustomerRepositoryGateway(
     }
 
     override suspend fun deleteCustomerById(id: Long) {
-        return customerRepository.deleteById(id)
+        customerRepository.deleteById(id)
     }
 
     override fun getAllCustomers(): Flow<Customer> {
         return customerRepository.findAll()
-            .map { entity -> customerEntityMapper.toDomainObject(entity)}
+            .map { entity -> customerEntityMapper.toDomainObject(entity) }
     }
 
     companion object {
