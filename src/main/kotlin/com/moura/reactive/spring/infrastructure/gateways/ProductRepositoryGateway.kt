@@ -4,6 +4,7 @@ import com.moura.reactive.spring.application.gateways.ProductGateway
 import com.moura.reactive.spring.domain.entity.Product
 import com.moura.reactive.spring.infrastructure.gateways.mapper.ProductEntityMapper
 import com.moura.reactive.spring.infrastructure.persistence.repository.ProductRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -16,11 +17,12 @@ import mu.KotlinLogging
 class ProductRepositoryGateway(
     private val productRepository: ProductRepository,
     private val productEntityMapper: ProductEntityMapper,
+    private val coroutineDispatcher: CoroutineDispatcher
 ) : ProductGateway {
 
     override suspend fun createProduct(product: Product): Product {
         return runCatching {
-            withContext(Dispatchers.IO) {
+            withContext(coroutineDispatcher) {
                 productEntityMapper.toEntity(product)
                     .let { productRepository.save(it) }
                     .let { productEntityMapper.toDomainObject(it) }

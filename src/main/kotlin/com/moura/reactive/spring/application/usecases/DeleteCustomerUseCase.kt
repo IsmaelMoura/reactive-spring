@@ -1,6 +1,6 @@
 package com.moura.reactive.spring.application.usecases
 
-interface DeleteCustomerUseCase {
+fun interface DeleteCustomerUseCase {
 
     suspend fun deleteCustomerById(id: Long)
 }
