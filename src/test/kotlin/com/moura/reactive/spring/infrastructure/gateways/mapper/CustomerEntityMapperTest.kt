@@ -1,15 +1,14 @@
 package com.moura.reactive.spring.infrastructure.gateways.mapper
 
+import com.moura.reactive.spring.UnitTest
 import com.moura.reactive.spring.domain.entity.Customer
 import com.moura.reactive.spring.infrastructure.persistence.entity.CustomerEntity
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 import java.util.UUID
 import kotlin.random.Random
 
+@UnitTest
 class CustomerEntityMapperTest {
 
     private val customerEntityMapper = CustomerEntityMapper()

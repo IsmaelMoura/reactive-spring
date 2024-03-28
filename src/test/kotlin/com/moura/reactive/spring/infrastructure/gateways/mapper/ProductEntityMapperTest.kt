@@ -1,5 +1,6 @@
 package com.moura.reactive.spring.infrastructure.gateways.mapper
 
+import com.moura.reactive.spring.UnitTest
 import com.moura.reactive.spring.domain.entity.Product
 import com.moura.reactive.spring.infrastructure.persistence.entity.ProductEntity
 import org.assertj.core.api.Assertions.assertThat
@@ -8,6 +9,7 @@ import java.math.BigDecimal
 import java.util.UUID
 import kotlin.random.Random
 
+@UnitTest
 class ProductEntityMapperTest {
 
     private val productEntityMapper = ProductEntityMapper()

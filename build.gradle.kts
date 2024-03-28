@@ -53,8 +53,9 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
 }
 
 tasks.withType<KotlinCompile> {
@@ -66,4 +67,24 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.register("integrationTest", Test::class) {
+    description = "Runs all integration tests"
+    group = "verification"
+
+    useJUnitPlatform {
+        includeTags("integrationTest")
+        excludeTags("unitTest")
+    }
+}
+
+tasks.register("unitTest", Test::class) {
+    description = "Runs all unit tests"
+    group = "verification"
+
+    useJUnitPlatform {
+        includeTags("unitTest")
+        excludeTags("integrationTest")
+    }
 }

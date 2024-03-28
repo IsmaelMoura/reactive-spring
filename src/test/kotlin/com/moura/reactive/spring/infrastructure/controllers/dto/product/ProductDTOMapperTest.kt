@@ -1,14 +1,14 @@
 package com.moura.reactive.spring.infrastructure.controllers.dto.product
 
+import com.moura.reactive.spring.UnitTest
 import com.moura.reactive.spring.domain.entity.Product
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
-import java.time.Instant
 import java.util.UUID
 import kotlin.random.Random
 
+@UnitTest
 class ProductDTOMapperTest {
 
     private val productDTOMapper = ProductDTOMapper()
