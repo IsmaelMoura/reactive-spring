@@ -2,7 +2,9 @@ package com.moura.reactive.spring.main.config
 
 import com.moura.reactive.spring.application.gateways.ProductGateway
 import com.moura.reactive.spring.application.interactors.CreateProductInteractor
+import com.moura.reactive.spring.application.interactors.GetAllProductsInteractor
 import com.moura.reactive.spring.application.usecases.CreateProductUseCase
+import com.moura.reactive.spring.application.usecases.GetAllProductsUseCase
 import com.moura.reactive.spring.infrastructure.controllers.dto.product.ProductDTOMapper
 import com.moura.reactive.spring.infrastructure.gateways.ProductRepositoryGateway
 import com.moura.reactive.spring.infrastructure.gateways.mapper.ProductEntityMapper
@@ -16,6 +18,13 @@ class ProductConfig {
     @Bean
     fun createProductUseCase(productGateway: ProductGateway): CreateProductUseCase {
         return CreateProductInteractor(
+            productGateway = productGateway
+        )
+    }
+
+    @Bean
+    fun getAllProductsUseCase(productGateway: ProductGateway): GetAllProductsUseCase {
+        return GetAllProductsInteractor(
             productGateway = productGateway
         )
     }

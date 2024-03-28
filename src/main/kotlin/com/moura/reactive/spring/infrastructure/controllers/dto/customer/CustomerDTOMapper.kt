@@ -13,6 +13,7 @@ class CustomerDTOMapper {
 
     fun toResponse(customer: Customer): CreateCustomerResponse {
         return CreateCustomerResponse(
+            id = customer.id!!,
             name = customer.name
         )
     }

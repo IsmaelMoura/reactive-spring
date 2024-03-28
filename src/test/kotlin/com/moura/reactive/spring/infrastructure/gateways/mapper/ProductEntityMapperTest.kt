@@ -16,13 +16,14 @@ class ProductEntityMapperTest {
 
     @Test
     fun toEntity() {
+        val id = Random.nextLong()
         val name = "product-${UUID.randomUUID()}"
         val price = BigDecimal.valueOf(Random.nextLong())
-        val product = Product(name, price)
+        val product = Product(id = id, name = name, price = price)
 
         val productEntity = productEntityMapper.toEntity(product)
 
-        assertThat(productEntity).isEqualTo(ProductEntity(id = null, name, price))
+        assertThat(productEntity).isEqualTo(ProductEntity(id = id, name = name, price = price))
     }
 
     @Test
@@ -34,6 +35,6 @@ class ProductEntityMapperTest {
 
         val domainProduct = productEntityMapper.toDomainObject(productEntity)
 
-        assertThat(domainProduct).isEqualTo(Product(name, price))
+        assertThat(domainProduct).isEqualTo(Product(id = id, name = name, price = price))
     }
 }

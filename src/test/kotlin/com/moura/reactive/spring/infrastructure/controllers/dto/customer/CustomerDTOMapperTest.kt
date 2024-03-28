@@ -5,6 +5,7 @@ import com.moura.reactive.spring.domain.entity.Customer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.util.UUID
+import kotlin.random.Random
 
 @UnitTest
 class CustomerDTOMapperTest {
@@ -19,17 +20,18 @@ class CustomerDTOMapperTest {
 
         val customer = customerDTOMapper.toDomainCustomer(createCustomerRequest)
 
-        assertThat(customer).isEqualTo(Customer(name, email))
+        assertThat(customer).isEqualTo(Customer(id = null, name = name, email = email))
     }
 
     @Test
     fun toResponse() {
+        val id = Random.nextLong()
         val name = "product-${UUID.randomUUID()}"
         val email = "email@${UUID.randomUUID()}.com"
-        val customer = Customer(name, email)
+        val customer = Customer(id = id, name = name, email = email)
 
         val domainProduct = customerDTOMapper.toResponse(customer)
 
-        assertThat(domainProduct).isEqualTo(CreateCustomerResponse(name))
+        assertThat(domainProduct).isEqualTo(CreateCustomerResponse(id = id, name = name))
     }
 }

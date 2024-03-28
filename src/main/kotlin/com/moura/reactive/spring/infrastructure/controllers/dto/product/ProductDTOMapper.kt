@@ -13,6 +13,7 @@ class ProductDTOMapper {
 
     fun toResponse(product: Product): CreateProductResponse {
         return CreateProductResponse(
+            id = product.id!!,
             name = product.name,
             price = product.price
         )

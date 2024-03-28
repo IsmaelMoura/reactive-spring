@@ -15,13 +15,14 @@ class CustomerEntityMapperTest {
 
     @Test
     fun toEntity() {
+        val id = Random.nextLong()
         val name = "customer-${UUID.randomUUID()}"
         val email = "email@${UUID.randomUUID()}.com"
-        val customer = Customer(name, email)
+        val customer = Customer(id = id, name = name, email = email)
 
         val customerEntity = customerEntityMapper.toEntity(customer)
 
-        assertThat(customerEntity).isEqualTo(CustomerEntity(id = null, name, email))
+        assertThat(customerEntity).isEqualTo(CustomerEntity(id = id, name, email))
     }
 
     @Test
@@ -33,6 +34,6 @@ class CustomerEntityMapperTest {
 
         val customerEntity = customerEntityMapper.toDomainObject(customer)
 
-        assertThat(customerEntity).isEqualTo(Customer(name, email))
+        assertThat(customerEntity).isEqualTo(Customer(id = id, name = name, email = email))
     }
 }

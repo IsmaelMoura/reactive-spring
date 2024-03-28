@@ -8,6 +8,7 @@ class CustomerEntityMapper : EntityMapper<Customer, CustomerEntity> {
 
     override fun toEntity(domain: Customer): CustomerEntity {
         return CustomerEntity(
+            id = domain.id,
             name = domain.name,
             email = domain.email
         )
@@ -15,6 +16,7 @@ class CustomerEntityMapper : EntityMapper<Customer, CustomerEntity> {
 
     override fun toDomainObject(entity: CustomerEntity): Customer {
         return Customer(
+            id = entity.id,
             name = entity.name,
             email = entity.email
         )

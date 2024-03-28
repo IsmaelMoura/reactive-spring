@@ -8,6 +8,7 @@ class ProductEntityMapper : EntityMapper<Product, ProductEntity> {
 
     override fun toEntity(domain: Product): ProductEntity {
         return ProductEntity(
+            id = domain.id,
             name = domain.name,
             price = domain.price
         )
@@ -15,6 +16,7 @@ class ProductEntityMapper : EntityMapper<Product, ProductEntity> {
 
     override fun toDomainObject(entity: ProductEntity): Product {
         return Product(
+            id = entity.id,
             name = entity.name,
             price = entity.price
         )
