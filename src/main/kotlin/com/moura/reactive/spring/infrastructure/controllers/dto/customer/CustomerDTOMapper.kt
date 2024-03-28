@@ -1,7 +1,6 @@
 package com.moura.reactive.spring.infrastructure.controllers.dto.customer
 
 import com.moura.reactive.spring.domain.entity.Customer
-import kotlinx.coroutines.flow.Flow
 
 class CustomerDTOMapper {
 

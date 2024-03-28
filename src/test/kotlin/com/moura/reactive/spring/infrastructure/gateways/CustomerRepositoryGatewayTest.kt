@@ -2,8 +2,6 @@ package com.moura.reactive.spring.infrastructure.gateways
 
 import org.junit.jupiter.api.Test
 
-import org.junit.jupiter.api.Assertions.*
-
 class CustomerRepositoryGatewayTest {
 
     @Test
