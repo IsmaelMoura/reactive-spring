@@ -11,7 +11,7 @@ import kotlin.random.Random
 @UnitTest
 class ProductDTOMapperTest {
 
-    private val productDTOMapper = ProductDTOMapper()
+    private val underTest = ProductDTOMapper()
 
     @Test
     fun toDomainProduct() {
@@ -19,7 +19,7 @@ class ProductDTOMapperTest {
         val price = BigDecimal.valueOf(Random.nextLong())
         val createProductRequest = CreateProductRequest(name, price)
 
-        val domainProduct = productDTOMapper.toDomainProduct(createProductRequest)
+        val domainProduct = underTest.toDomainProduct(createProductRequest)
 
         assertThat(domainProduct).isEqualTo(Product(id = null, name = name, price = price))
     }
@@ -31,7 +31,7 @@ class ProductDTOMapperTest {
         val price = BigDecimal.valueOf(Random.nextLong())
         val product = Product(id = id, name = name, price = price)
 
-        val response = productDTOMapper.toResponse(product)
+        val response = underTest.toResponse(product)
 
         assertThat(response).isEqualTo(CreateProductResponse(id = id, name = name, price = price))
     }

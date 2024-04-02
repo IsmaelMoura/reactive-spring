@@ -1,16 +1,15 @@
 package com.moura.reactive.spring
 
+import com.moura.reactive.spring.infrastructure.persistence.Database
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.containers.DockerComposeContainer
-import org.testcontainers.junit.jupiter.Testcontainers
 import java.io.File
 
 @IntegrationTest
-@Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class BaseIntegrationTest {
 
@@ -40,7 +39,7 @@ class BaseIntegrationTest {
                         ContainersConstants.POSTGRES_SERVICE_NAME,
                         ContainersConstants.POSTGRES_PORT
                     )
-                }/reactive_spring?schema=reactive_spring_schema"
+                }/${Database.NAME}?schema=${Database.Schemas.REACTIVE_SPRING_SCHEMA}"
             }
             registry.add("spring.r2dbc.username") { ContainersConstants.POSTGRES_USERNAME }
             registry.add("spring.r2dbc.password") { ContainersConstants.POSTGRES_PASSWORD }

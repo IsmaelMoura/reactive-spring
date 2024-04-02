@@ -30,6 +30,7 @@ dependencyManagement {
 
 val postgresR2dbcVersion = "1.0.4.RELEASE"
 val kotlinLoggingJvmVersion = "3.0.5"
+val mockkVersion = "1.13.10"
 
 dependencies {
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
@@ -47,6 +48,7 @@ dependencies {
     runtimeOnly("org.postgresql:r2dbc-postgresql:$postgresR2dbcVersion")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("io.mockk:mockk:$mockkVersion")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
@@ -54,6 +56,12 @@ dependencies {
     testImplementation("org.testcontainers:postgresql")
     testImplementation("org.testcontainers:kafka")
     testImplementation("org.testcontainers:r2dbc")
+}
+
+configurations {
+    testImplementation.configure {
+        exclude(group = "org.mockito")
+    }
 }
 
 java {

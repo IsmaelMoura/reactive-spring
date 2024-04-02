@@ -10,7 +10,7 @@ import kotlin.random.Random
 @UnitTest
 class CustomerDTOMapperTest {
 
-    private val customerDTOMapper = CustomerDTOMapper()
+    private val underTest = CustomerDTOMapper()
 
     @Test
     fun toDomainProduct() {
@@ -18,7 +18,7 @@ class CustomerDTOMapperTest {
         val email = "email@${UUID.randomUUID()}.com"
         val createCustomerRequest = CreateCustomerRequest(name, email)
 
-        val customer = customerDTOMapper.toDomainCustomer(createCustomerRequest)
+        val customer = underTest.toDomainCustomer(createCustomerRequest)
 
         assertThat(customer).isEqualTo(Customer(id = null, name = name, email = email))
     }
@@ -30,7 +30,7 @@ class CustomerDTOMapperTest {
         val email = "email@${UUID.randomUUID()}.com"
         val customer = Customer(id = id, name = name, email = email)
 
-        val domainProduct = customerDTOMapper.toResponse(customer)
+        val domainProduct = underTest.toResponse(customer)
 
         assertThat(domainProduct).isEqualTo(CreateCustomerResponse(id = id, name = name))
     }
