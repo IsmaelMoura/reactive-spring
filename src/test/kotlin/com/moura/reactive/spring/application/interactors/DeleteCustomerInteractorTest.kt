@@ -3,10 +3,14 @@ package com.moura.reactive.spring.application.interactors
 import com.moura.reactive.spring.UnitTest
 import com.moura.reactive.spring.application.gateways.CustomerGateway
 import com.moura.reactive.spring.fixture.CustomerFactory
-import io.mockk.*
+import io.mockk.clearAllMocks
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
+import io.mockk.just
+import io.mockk.runs
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test

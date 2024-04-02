@@ -2,7 +2,7 @@ package com.moura.reactive.spring.fixture
 
 import com.moura.reactive.spring.domain.entity.Product
 import java.math.BigDecimal
-import java.util.*
+import java.util.UUID
 import kotlin.random.Random
 
 object ProductFactory {

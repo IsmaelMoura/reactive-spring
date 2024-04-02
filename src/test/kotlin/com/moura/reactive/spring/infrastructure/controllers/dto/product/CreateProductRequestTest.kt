@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 
 @UnitTest
-class CreateProductRequestTest: DeserializationTesterModule() {
+class CreateProductRequestTest : DeserializationTesterModule() {
 
     @Test
     fun `should deserialize CreateProductRequest from JSON`() {

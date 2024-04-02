@@ -17,7 +17,7 @@ import mu.KotlinLogging
 class ProductRepositoryGateway(
     private val productRepository: ProductRepository,
     private val productEntityMapper: ProductEntityMapper,
-    private val coroutineDispatcher: CoroutineDispatcher
+    private val coroutineDispatcher: CoroutineDispatcher,
 ) : ProductGateway {
 
     override suspend fun createProduct(product: Product): Product {
