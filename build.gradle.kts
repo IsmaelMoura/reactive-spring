@@ -48,14 +48,10 @@ dependencies {
     runtimeOnly("org.postgresql:r2dbc-postgresql:$postgresR2dbcVersion")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.mockk:mockk:$mockkVersion")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
-    testImplementation("io.projectreactor:reactor-test")
+    testImplementation("org.testcontainers:testcontainers")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
-    testImplementation("org.testcontainers:junit-jupiter")
-    testImplementation("org.testcontainers:postgresql")
-    testImplementation("org.testcontainers:kafka")
-    testImplementation("org.testcontainers:r2dbc")
+    testImplementation("io.mockk:mockk:$mockkVersion")
 }
 
 configurations {
@@ -66,14 +62,14 @@ configurations {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs += "-Xjsr305=strict"
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
 }
 
