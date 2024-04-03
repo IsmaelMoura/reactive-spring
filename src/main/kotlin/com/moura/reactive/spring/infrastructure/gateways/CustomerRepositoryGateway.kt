@@ -6,6 +6,7 @@ import com.moura.reactive.spring.infrastructure.gateways.mapper.CustomerEntityMa
 import com.moura.reactive.spring.infrastructure.persistence.repository.CustomerRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import mu.KotlinLogging
 
 class CustomerRepositoryGateway(
@@ -27,6 +28,9 @@ class CustomerRepositoryGateway(
     override fun getAllCustomers(): Flow<Customer> {
         return customerRepository.findAll()
             .map { entity -> customerEntityMapper.toDomainObject(entity) }
+            .onEach { customer ->
+                logger.info { "Found customer: [$customer] on database" }
+            }
     }
 
     companion object {

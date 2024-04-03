@@ -42,12 +42,16 @@ class CustomerController(
 
     @DeleteMapping("/{customerId}")
     suspend fun deleteCustomerById(@PathVariable customerId: Long): ResponseEntity<Unit> {
+        logger.info { "Received DELETE request for delete customer by id. customerId: [$customerId]" }
+
         return deleteCustomerUseCase.deleteCustomerById(customerId)
             .let { ResponseEntity.noContent().build() }
     }
 
     @GetMapping
     fun getAllCustomers(): Flow<Customer> {
+        logger.info { "Received GET request for all customers." }
+
         return getAllCustomersUseCase.getAllCustomers()
 
     }
