@@ -1,5 +1,5 @@
 spring:
   r2dbc:
-    url: r2dbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/reactive_spring?schema=reactive_spring_schema
-    username: ${POSTGRES_USERNAME:root}
-    password: ${POSTGRES_PASSWORD:root}
+    url: r2dbc:postgresql://${POSTGRES_HOST}:5432/reactive_spring?schema=reactive_spring_schema
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
