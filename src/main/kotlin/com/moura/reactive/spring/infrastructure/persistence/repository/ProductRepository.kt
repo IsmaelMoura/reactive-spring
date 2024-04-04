@@ -3,6 +3,7 @@ package com.moura.reactive.spring.infrastructure.persistence.repository
 import com.moura.reactive.spring.infrastructure.persistence.entity.ProductEntity
 import org.springframework.data.r2dbc.repository.Query
 import org.springframework.data.repository.kotlin.CoroutineCrudRepository
+import java.math.BigDecimal
 
 interface ProductRepository : CoroutineCrudRepository<ProductEntity, Long> {
 
@@ -22,6 +23,6 @@ interface ProductRepository : CoroutineCrudRepository<ProductEntity, Long> {
             WHERE reactive_spring_schema.products.id == ?2
         """
     )
-    suspend fun updatePriceById(name: String, customerId: Long)
+    suspend fun updatePriceById(price: BigDecimal, customerId: Long)
 
 }
