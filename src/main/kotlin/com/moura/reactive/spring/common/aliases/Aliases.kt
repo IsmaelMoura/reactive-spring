@@ -1,4 +1,4 @@
-package com.moura.reactive.spring.common.alias
+package com.moura.reactive.spring.common.aliases
 
 import com.moura.reactive.spring.domain.entity.Customer
 import com.moura.reactive.spring.domain.entity.Product
