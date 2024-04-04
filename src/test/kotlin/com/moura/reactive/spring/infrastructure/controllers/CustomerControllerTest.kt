@@ -10,12 +10,17 @@ class CustomerControllerTest {
     }
 
     @Test
-    fun deleteCustomerById() {
+    fun getAllCustomers() {
         TODO()
     }
 
     @Test
-    fun getAllCustomers() {
+    fun getCustomerById() {
+        TODO("Not yet implemented")
+    }
+
+    @Test
+    fun deleteCustomerById() {
         TODO()
     }
 }

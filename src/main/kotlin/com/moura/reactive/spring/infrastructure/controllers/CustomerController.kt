@@ -3,6 +3,7 @@ package com.moura.reactive.spring.infrastructure.controllers
 import com.moura.reactive.spring.application.usecases.CreateCustomerUseCase
 import com.moura.reactive.spring.application.usecases.DeleteCustomerUseCase
 import com.moura.reactive.spring.application.usecases.GetAllCustomersUseCase
+import com.moura.reactive.spring.application.usecases.GetCustomerByIdUseCase
 import com.moura.reactive.spring.domain.entity.Customer
 import com.moura.reactive.spring.infrastructure.controllers.dto.customer.CreateCustomerRequest
 import com.moura.reactive.spring.infrastructure.controllers.dto.customer.CreateCustomerResponse
@@ -23,10 +24,10 @@ import org.springframework.web.bind.annotation.RestController
 class CustomerController(
     private val customerDTOMapper: CustomerDTOMapper,
     private val createCustomerUseCase: CreateCustomerUseCase,
-    private val deleteCustomerUseCase: DeleteCustomerUseCase,
     private val getAllCustomersUseCase: GetAllCustomersUseCase,
+    private val getCustomerByIdUseCase: GetCustomerByIdUseCase,
+    private val deleteCustomerUseCase: DeleteCustomerUseCase,
 ) {
-
 
     @PostMapping
     suspend fun createCustomer(
@@ -40,20 +41,28 @@ class CustomerController(
             .let { response -> ResponseEntity.ok(response) }
     }
 
-    @DeleteMapping("/{customerId}")
-    suspend fun deleteCustomerById(@PathVariable customerId: Long): ResponseEntity<Unit> {
-        logger.info { "Received DELETE request for delete customer by id. customerId: [$customerId]" }
-
-        return deleteCustomerUseCase.deleteCustomerById(customerId)
-            .let { ResponseEntity.noContent().build() }
-    }
-
     @GetMapping
     fun getAllCustomers(): Flow<Customer> {
         logger.info { "Received GET request for all customers." }
 
         return getAllCustomersUseCase.getAllCustomers()
 
+    }
+
+    @GetMapping("/{customerId}")
+    suspend fun getCustomerById(@PathVariable customerId: Long): ResponseEntity<Customer> {
+        logger.info { "Received GET customer by id request (customerId: [$customerId]" }
+
+        return getCustomerByIdUseCase.getCustomerById(customerId)
+            .let { ResponseEntity.ok(it) }
+    }
+
+    @DeleteMapping("/{customerId}")
+    suspend fun deleteCustomerById(@PathVariable customerId: Long): ResponseEntity<Nothing> {
+        logger.info { "Received DELETE request for delete customer by id. customerId: [$customerId]" }
+
+        return deleteCustomerUseCase.deleteCustomerById(customerId)
+            .let { ResponseEntity.noContent().build() }
     }
 
     companion object {

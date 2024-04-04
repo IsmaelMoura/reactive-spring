@@ -1,6 +1,7 @@
 package com.moura.reactive.spring.infrastructure.gateways
 
 import com.moura.reactive.spring.application.gateways.CustomerGateway
+import com.moura.reactive.spring.common.exceptions.CustomerNotFoundException
 import com.moura.reactive.spring.domain.entity.Customer
 import com.moura.reactive.spring.infrastructure.gateways.mapper.CustomerEntityMapper
 import com.moura.reactive.spring.infrastructure.persistence.repository.CustomerRepository
@@ -21,16 +22,26 @@ class CustomerRepositoryGateway(
             .let { customerEntityMapper.toDomainObject(it) }
     }
 
+    override fun getAllCustomers(): Flow<Customer> {
+        return customerRepository.findAll()
+            .map { entity -> customerEntityMapper.toDomainObject(entity) }
+            .onEach { customer -> logger.info { "Found customer: [$customer] on database" } }
+    }
+
+    override suspend fun getCustomerById(customerId: Long): Customer {
+        return customerRepository.findById(customerId)
+            ?.let { customerEntityMapper.toDomainObject(it) }
+            ?: throwCustomerNotFoundException(customerId)
+    }
+
     override suspend fun deleteCustomerById(id: Long) {
         customerRepository.deleteById(id)
     }
 
-    override fun getAllCustomers(): Flow<Customer> {
-        return customerRepository.findAll()
-            .map { entity -> customerEntityMapper.toDomainObject(entity) }
-            .onEach { customer ->
-                logger.info { "Found customer: [$customer] on database" }
-            }
+    private fun throwCustomerNotFoundException(customerId: Long): Nothing {
+        logger.warn { "Customer with id: [$customerId] was not found" }
+
+        throw CustomerNotFoundException(customerId)
     }
 
     companion object {

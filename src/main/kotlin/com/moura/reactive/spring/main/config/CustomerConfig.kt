@@ -4,9 +4,11 @@ import com.moura.reactive.spring.application.gateways.CustomerGateway
 import com.moura.reactive.spring.application.interactors.CreateCustomerInteractor
 import com.moura.reactive.spring.application.interactors.DeleteCustomerInteractor
 import com.moura.reactive.spring.application.interactors.GetAllCustomersInteractor
+import com.moura.reactive.spring.application.interactors.GetCustomerByIdInteractor
 import com.moura.reactive.spring.application.usecases.CreateCustomerUseCase
 import com.moura.reactive.spring.application.usecases.DeleteCustomerUseCase
 import com.moura.reactive.spring.application.usecases.GetAllCustomersUseCase
+import com.moura.reactive.spring.application.usecases.GetCustomerByIdUseCase
 import com.moura.reactive.spring.infrastructure.controllers.dto.customer.CustomerDTOMapper
 import com.moura.reactive.spring.infrastructure.gateways.CustomerRepositoryGateway
 import com.moura.reactive.spring.infrastructure.gateways.mapper.CustomerEntityMapper
@@ -23,15 +25,22 @@ class CustomerConfig {
     }
 
     @Bean
-    fun deleteCustomerUseCase(customerGateway: CustomerGateway): DeleteCustomerUseCase {
-        return DeleteCustomerInteractor(
+    fun getAllCustomersUseCase(customerGateway: CustomerGateway): GetAllCustomersUseCase {
+        return GetAllCustomersInteractor(
             customerGateway = customerGateway
         )
     }
 
     @Bean
-    fun getAllCustomersUseCase(customerGateway: CustomerGateway): GetAllCustomersUseCase {
-        return GetAllCustomersInteractor(
+    fun getCustomerByIdUseCase(customerGateway: CustomerGateway): GetCustomerByIdUseCase {
+        return GetCustomerByIdInteractor(
+            customerGateway = customerGateway
+        )
+    }
+
+    @Bean
+    fun deleteCustomerUseCase(customerGateway: CustomerGateway): DeleteCustomerUseCase {
+        return DeleteCustomerInteractor(
             customerGateway = customerGateway
         )
     }

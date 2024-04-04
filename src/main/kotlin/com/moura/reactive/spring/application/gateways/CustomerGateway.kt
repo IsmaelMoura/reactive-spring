@@ -7,7 +7,9 @@ interface CustomerGateway {
 
     suspend fun createCustomer(customer: Customer): Customer
 
-    suspend fun deleteCustomerById(id: Long)
-
     fun getAllCustomers(): Flow<Customer>
+
+    suspend fun getCustomerById(customerId: Long): Customer
+
+    suspend fun deleteCustomerById(id: Long)
 }
