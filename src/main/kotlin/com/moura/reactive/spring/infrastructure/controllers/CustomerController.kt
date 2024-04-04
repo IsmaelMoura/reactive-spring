@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping(Endpoints.CUSTOMERS_ENDPOINT)
 class CustomerController(
+    private val customerDTOMapper: CustomerDTOMapper,
     private val createCustomerUseCase: CreateCustomerUseCase,
     private val deleteCustomerUseCase: DeleteCustomerUseCase,
     private val getAllCustomersUseCase: GetAllCustomersUseCase,
-    private val customerDTOMapper: CustomerDTOMapper,
 ) {
 
 
