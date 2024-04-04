@@ -18,7 +18,7 @@ interface ProductRepository : CoroutineCrudRepository<ProductEntity, Long> {
     @Query(
         """
             UPDATE reactive_spring_schema.products 
-            SET name = ?1 
+            SET price = ?1 
             WHERE reactive_spring_schema.products.id == ?2
         """
     )
