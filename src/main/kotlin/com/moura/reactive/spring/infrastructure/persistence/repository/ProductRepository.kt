@@ -23,6 +23,6 @@ interface ProductRepository : CoroutineCrudRepository<ProductEntity, Long> {
             WHERE reactive_spring_schema.products.id == ?2
         """
     )
-    suspend fun updatePriceById(price: BigDecimal, customerId: Long)
+    suspend fun updatePriceById(price: BigDecimal, productId: Long)
 
 }
