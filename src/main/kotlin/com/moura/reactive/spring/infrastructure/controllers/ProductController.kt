@@ -1,6 +1,7 @@
 package com.moura.reactive.spring.infrastructure.controllers
 
 import com.moura.reactive.spring.application.usecases.CreateProductUseCase
+import com.moura.reactive.spring.application.usecases.DeleteProductUseCase
 import com.moura.reactive.spring.application.usecases.GetAllProductsUseCase
 import com.moura.reactive.spring.domain.entity.Product
 import com.moura.reactive.spring.infrastructure.controllers.dto.product.CreateProductRequest
@@ -9,7 +10,9 @@ import com.moura.reactive.spring.infrastructure.controllers.dto.product.ProductD
 import kotlinx.coroutines.flow.Flow
 import mu.KotlinLogging
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController
 class ProductController(
     private val createProductUseCase: CreateProductUseCase,
     private val getAllProductsUseCase: GetAllProductsUseCase,
+    private val deleteProductUseCase: DeleteProductUseCase,
     private val productDTOMapper: ProductDTOMapper,
 ) {
 
@@ -40,6 +44,14 @@ class ProductController(
         logger.info { "Received GET request for all products." }
 
         return getAllProductsUseCase.getAllProducts()
+    }
+
+    @DeleteMapping("/{productId}")
+    suspend fun deleteProductById(@PathVariable productId: Long): ResponseEntity<Any> {
+        logger.info { "Received DELETE request for product. productId: [$productId]" }
+
+        return deleteProductUseCase.deleteProductById(productId)
+            .let { ResponseEntity.noContent().build() }
     }
 
     companion object {

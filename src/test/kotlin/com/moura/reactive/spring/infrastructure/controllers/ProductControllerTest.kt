@@ -8,4 +8,14 @@ class ProductControllerTest {
     fun createProduct() {
         TODO()
     }
+
+    @Test
+    fun getAllProducts() {
+        TODO()
+    }
+
+    @Test
+    fun deleteProductById() {
+        TODO()
+    }
 }

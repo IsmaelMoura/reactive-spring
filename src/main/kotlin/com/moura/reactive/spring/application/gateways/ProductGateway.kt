@@ -8,4 +8,6 @@ interface ProductGateway {
     suspend fun createProduct(product: Product): Product
 
     fun getAllProducts(): Flow<Product>
+
+    suspend fun deleteProductById(productId: Long)
 }
