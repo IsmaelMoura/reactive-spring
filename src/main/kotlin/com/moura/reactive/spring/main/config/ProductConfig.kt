@@ -11,7 +11,6 @@ import com.moura.reactive.spring.infrastructure.controllers.dto.product.ProductD
 import com.moura.reactive.spring.infrastructure.gateways.ProductRepositoryGateway
 import com.moura.reactive.spring.infrastructure.gateways.mapper.ProductEntityMapper
 import com.moura.reactive.spring.infrastructure.persistence.repository.ProductRepository
-import kotlinx.coroutines.Dispatchers
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -44,7 +43,6 @@ class ProductConfig {
         return ProductRepositoryGateway(
             productRepository = productRepository,
             productEntityMapper = productEntityMapper,
-            coroutineDispatcher = Dispatchers.IO
         )
     }
 
