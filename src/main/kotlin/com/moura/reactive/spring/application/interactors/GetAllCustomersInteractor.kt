@@ -15,10 +15,10 @@ class GetAllCustomersInteractor(
     override fun getAllCustomers(): Flow<Customer> {
         return customerGateway.getAllCustomers()
             .catch { throwable ->
-                logger.error(throwable) { "Error while getting all products from database" }
+                logger.error(throwable) { "Error while getting all customers from database" }
             }
             .onCompletion { throwable ->
-                throwable ?: logger.info { "Found all products from database" }
+                throwable ?: logger.info { "Found all customers from database" }
             }
     }
 

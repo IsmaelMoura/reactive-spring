@@ -5,15 +5,16 @@ import com.moura.reactive.spring.application.gateways.CustomerGateway
 import com.moura.reactive.spring.domain.entity.Customer
 import com.moura.reactive.spring.fixture.CustomerFactory
 import io.mockk.clearAllMocks
-import io.mockk.coEvery
-import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
+import io.mockk.verify
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
@@ -44,8 +45,7 @@ class GetAllCustomersInteractorTest {
         val returnedCustomers = underTest.getAllCustomers()
 
         verifyCustomerGatewayCalledOnce()
-        assertThat(returnedCustomers.count()).isNotZero()
-        assertThat(customersToReturn).isEqualTo(returnedCustomers)
+        assertThat(customersToReturn.toList()).isEqualTo(returnedCustomers.toList())
     }
 
     @Test
@@ -57,22 +57,22 @@ class GetAllCustomersInteractorTest {
 
         verifyCustomerGatewayCalledOnce()
         assertThat(returnedCustomers.count()).isZero()
-        assertThat(customersToReturn).isEqualTo(returnedCustomers)
     }
 
-    private fun givenCustomerFlow() = flow {
-        repeat(Random.nextInt(1, 10)) {
-            emit(CustomerFactory.createCustomer(id = it.toLong()))
-        }
-    }
+    private fun givenCustomerFlow() =
+        buildList {
+            repeat(Random.nextInt(1, 10)) {
+                add(CustomerFactory.createCustomer(id = it.toLong()))
+            }
+        }.asFlow()
 
     private fun givenCustomerGatewayReturnAllProduct(customers: Flow<Customer>) {
-        coEvery { customerGateway.getAllCustomers() } returns customers
+        every { customerGateway.getAllCustomers() } returns customers
     }
 
     private fun givenEmptyCustomerFlow() = emptyFlow<Customer>()
 
     private fun verifyCustomerGatewayCalledOnce() {
-        coVerify(exactly = 1) { customerGateway.getAllCustomers() }
+        verify(exactly = 1) { customerGateway.getAllCustomers() }
     }
 }

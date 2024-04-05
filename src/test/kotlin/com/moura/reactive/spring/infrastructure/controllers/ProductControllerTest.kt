@@ -1,8 +1,9 @@
 package com.moura.reactive.spring.infrastructure.controllers
 
+import com.moura.reactive.spring.BaseIntegrationTest
 import org.junit.jupiter.api.Test
 
-class ProductControllerTest {
+class ProductControllerTest: BaseIntegrationTest() {
 
     @Test
     fun createProduct() {

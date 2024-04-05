@@ -1,8 +1,9 @@
 package com.moura.reactive.spring.infrastructure.gateways
 
+import com.moura.reactive.spring.BaseIntegrationTest
 import org.junit.jupiter.api.Test
 
-class CustomerRepositoryGatewayTest {
+class CustomerRepositoryGatewayTest: BaseIntegrationTest() {
 
     @Test
     fun createCustomer() {
