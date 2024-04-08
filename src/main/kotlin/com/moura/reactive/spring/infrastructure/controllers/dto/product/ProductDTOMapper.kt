@@ -11,11 +11,19 @@ class ProductDTOMapper {
         )
     }
 
-    fun toResponse(product: Product): CreateProductResponse {
+    fun toGetAllProductsResponse(product: Product): GetAllProductsResponse {
+        return GetAllProductsResponse(
+            id = product.id!!,
+            name = product.name,
+            price = product.price,
+        )
+    }
+
+    fun toCreateProductResponse(product: Product): CreateProductResponse {
         return CreateProductResponse(
             id = product.id!!,
             name = product.name,
-            price = product.price
+            price = product.price,
         )
     }
 }

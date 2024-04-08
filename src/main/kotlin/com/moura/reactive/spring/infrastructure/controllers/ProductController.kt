@@ -6,8 +6,10 @@ import com.moura.reactive.spring.application.usecases.GetAllProductsUseCase
 import com.moura.reactive.spring.domain.entity.Product
 import com.moura.reactive.spring.infrastructure.controllers.dto.product.CreateProductRequest
 import com.moura.reactive.spring.infrastructure.controllers.dto.product.CreateProductResponse
+import com.moura.reactive.spring.infrastructure.controllers.dto.product.GetAllProductsResponse
 import com.moura.reactive.spring.infrastructure.controllers.dto.product.ProductDTOMapper
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import mu.KotlinLogging
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -35,15 +37,16 @@ class ProductController(
 
         return productDTOMapper.toDomainProduct(createProductRequest)
             .let { product -> createProductUseCase.createProduct(product) }
-            .let { product -> productDTOMapper.toResponse(product) }
+            .let { product -> productDTOMapper.toCreateProductResponse(product) }
             .let { response -> ResponseEntity.ok(response) }
     }
 
     @GetMapping
-    fun getAllProducts(): Flow<Product> {
+    fun getAllProducts(): Flow<GetAllProductsResponse> {
         logger.info { "Received GET request for all products." }
 
         return getAllProductsUseCase.getAllProducts()
+            .map { productDTOMapper.toGetAllProductsResponse(it) }
     }
 
     @DeleteMapping("/{productId}")

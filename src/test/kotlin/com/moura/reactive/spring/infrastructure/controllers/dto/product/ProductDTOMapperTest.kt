@@ -25,13 +25,13 @@ class ProductDTOMapperTest {
     }
 
     @Test
-    fun toResponse() {
+    fun toCreateProductResponse() {
         val id = Random.nextLong()
         val name = "product-${UUID.randomUUID()}"
         val price = BigDecimal.valueOf(Random.nextLong())
         val product = Product(id = id, name = name, price = price)
 
-        val response = underTest.toResponse(product)
+        val response = underTest.toCreateProductResponse(product)
 
         assertThat(response).isEqualTo(CreateProductResponse(id = id, name = name, price = price))
     }
