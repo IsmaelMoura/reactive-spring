@@ -1,6 +1,5 @@
 package com.moura.reactive.spring.application.interactors
 
-import com.moura.reactive.spring.UnitTest
 import com.moura.reactive.spring.application.gateways.CustomerGateway
 import com.moura.reactive.spring.common.exceptions.CustomerNotFoundException
 import com.moura.reactive.spring.domain.entity.Customer
@@ -19,7 +18,7 @@ import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import kotlin.random.Random
 
-@UnitTest
+
 @ExtendWith(MockKExtension::class)
 class GetCustomerByIdInteractorTest {
 

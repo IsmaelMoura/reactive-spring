@@ -1,0 +1,17 @@
+package com.moura.reactive.spring.infrastructure.controllers.dto.customer
+
+import com.moura.reactive.spring.fixture.DeserializationTesterModule
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+
+class GetAllCustomerResponseTest : DeserializationTesterModule() {
+
+    @Test
+    fun `should deserialize GetAllCustomerResponse from JSON`() {
+        val path = "src/test/resources/json/get_all_customers_response.json"
+        val expected = GetAllCustomerResponse(id = 1L, name = "name", email = "name.lastname@email.com")
+
+        assertThat(deserialize<GetAllCustomerResponse>(path)).isEqualTo(expected)
+    }
+}

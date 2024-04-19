@@ -1,12 +1,11 @@
 package com.moura.reactive.spring.infrastructure.controllers.dto.product
 
-import com.moura.reactive.spring.UnitTest
 import com.moura.reactive.spring.fixture.DeserializationTesterModule
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 
-@UnitTest
+
 class CreateProductRequestTest : DeserializationTesterModule() {
 
     @Test

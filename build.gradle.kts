@@ -31,6 +31,7 @@ dependencyManagement {
 val postgresR2dbcVersion = "1.0.4.RELEASE"
 val kotlinLoggingJvmVersion = "3.0.5"
 val mockkVersion = "1.13.10"
+val springDocOpenApiWebFluxVersion = "2.5.0"
 
 dependencies {
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
@@ -38,6 +39,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:$springDocOpenApiWebFluxVersion")
 
     implementation("io.github.microutils:kotlin-logging-jvm:$kotlinLoggingJvmVersion")
 
@@ -60,39 +63,33 @@ configurations {
     }
 }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+tasks {
+    withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs += "-Xjsr305=strict"
+            jvmTarget = "21"
+        }
     }
-}
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs += "-Xjsr305=strict"
-        jvmTarget = "21"
+    test {
+        useJUnitPlatform()
     }
-}
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
+    register("integrationTest", Test::class) {
+        description = "Runs all integration tests"
+        group = "verification"
 
-tasks.register("integrationTest", Test::class) {
-    description = "Runs all integration tests"
-    group = "verification"
-
-    useJUnitPlatform {
-        includeTags("integrationTest")
-        excludeTags("unitTest")
+        useJUnitPlatform {
+            includeTags("integrationTest")
+        }
     }
-}
 
-tasks.register("unitTest", Test::class) {
-    description = "Runs all unit tests"
-    group = "verification"
+    register("unitTest", Test::class) {
+        description = "Runs all unit tests"
+        group = "verification"
 
-    useJUnitPlatform {
-        includeTags("unitTest")
-        excludeTags("integrationTest")
+        useJUnitPlatform {
+            excludeTags("integrationTest")
+        }
     }
 }

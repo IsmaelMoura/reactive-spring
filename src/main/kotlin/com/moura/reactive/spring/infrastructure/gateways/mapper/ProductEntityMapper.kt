@@ -10,7 +10,7 @@ class ProductEntityMapper : EntityMapper<Product, ProductEntity> {
         return ProductEntity(
             id = domain.id,
             name = domain.name,
-            price = domain.price
+            price = domain.price,
         )
     }
 
@@ -18,7 +18,7 @@ class ProductEntityMapper : EntityMapper<Product, ProductEntity> {
         return Product(
             id = entity.id,
             name = entity.name,
-            price = entity.price
+            price = entity.price,
         )
     }
 }
